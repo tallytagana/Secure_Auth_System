@@ -26,7 +26,7 @@ const Register = () => {
 
     return (
         <div className="glass-card">
-            <h1>Join Us</h1>
+            <h1>Sign Up</h1>
             <p className="subtitle">Create your secure account</p>
 
             {error && <div className="error-message"><AlertCircle size={18} /> {error}</div>}

@@ -28,7 +28,7 @@ const Login = () => {
 
     return (
         <div className="glass-card">
-            <h1>Welcome Back</h1>
+            <h1>Sign In</h1>
             <p className="subtitle">Securely access your account</p>
 
             {successMessage && <div className="success-message"><CheckCircle size={18} /> {successMessage}</div>}
@@ -65,10 +65,27 @@ const Login = () => {
                         />
                     </div>
                 </div>
+                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                    <label className="checkbox-container">
+                        <input type="checkbox" />
+                        <span className="custom-checkbox"></span>
+                        <span className="checkbox-label">Remember me</span>
+                    </label>
+                </div>
                 <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? 'Authenticating...' : <><LogIn size={20} /> Login to Account</>}
+                    {loading ? 'Authenticating...' : <><LogIn size={20} /> Sign In</>}
                 </button>
             </form>
+
+            <div className="social-divider">Or sign in with</div>
+            <div className="social-buttons">
+                <button className="btn btn-google">
+                    Google
+                </button>
+                <button className="btn btn-github">
+                    GitHub
+                </button>
+            </div>
 
             <p style={{ textAlign: 'center', marginTop: '2.5rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
                 Don't have an account? <Link to="/register" className="text-link">Create Account</Link>
