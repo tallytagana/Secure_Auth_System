@@ -3,28 +3,54 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { LogIn, Mail, Lock, CheckCircle, AlertCircle } from 'lucide-react';
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
-    const [error, setError] = useState('');
+    const [errors, setErrors] = useState({});
+    const [serverError, setServerError] = useState('');
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const successMessage = location.state?.message;
 
+    const validate = () => {
+        const newErrors = {};
+        if (!emailRegex.test(formData.email)) newErrors.email = 'Please enter a valid email address.';
+        if (!formData.password) newErrors.password = 'Password is required.';
+        return newErrors;
+    };
+
+    const handleChange = (field, value) => {
+        setFormData({ ...formData, [field]: value });
+        if (errors[field]) setErrors({ ...errors, [field]: '' });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
+        setServerError('');
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
         setLoading(true);
         try {
             await login(formData.email, formData.password);
             navigate('/details');
         } catch (err) {
-            setError('Invalid email or password.');
+            setServerError('Invalid email or password.');
         } finally {
             setLoading(false);
         }
     };
+
+    const fieldError = (field) => errors[field] ? (
+        <span style={{ color: 'var(--error, #f87171)', fontSize: '0.8rem', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <AlertCircle size={13} /> {errors[field]}
+        </span>
+    ) : null;
 
     return (
         <div className="glass-card">
@@ -32,23 +58,23 @@ const Login = () => {
             <p className="subtitle">Securely access your account</p>
 
             {successMessage && <div className="success-message"><CheckCircle size={18} /> {successMessage}</div>}
-            {error && <div className="error-message"><AlertCircle size={18} /> {error}</div>}
+            {serverError && <div className="error-message"><AlertCircle size={18} /> {serverError}</div>}
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
                     <label className="form-label">Email Address</label>
                     <div style={{ position: 'relative' }}>
                         <Mail size={18} style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', opacity: 0.6 }} />
                         <input
                             type="email"
-                            className="form-input"
+                            className={`form-input${errors.email ? ' input-error' : ''}`}
                             style={{ paddingLeft: '3rem' }}
                             placeholder="name@example.com"
-                            required
                             value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            onChange={(e) => handleChange('email', e.target.value)}
                         />
                     </div>
+                    {fieldError('email')}
                 </div>
                 <div className="form-group" style={{ marginBottom: '2.5rem' }}>
                     <label className="form-label">Password</label>
@@ -56,14 +82,14 @@ const Login = () => {
                         <Lock size={18} style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', opacity: 0.6 }} />
                         <input
                             type="password"
-                            className="form-input"
+                            className={`form-input${errors.password ? ' input-error' : ''}`}
                             style={{ paddingLeft: '3rem' }}
                             placeholder="••••••••"
-                            required
                             value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            onChange={(e) => handleChange('password', e.target.value)}
                         />
                     </div>
+                    {fieldError('password')}
                 </div>
                 <div className="form-group" style={{ marginBottom: '1.5rem' }}>
                     <label className="checkbox-container">
@@ -76,16 +102,6 @@ const Login = () => {
                     {loading ? 'Authenticating...' : <><LogIn size={20} /> Sign In</>}
                 </button>
             </form>
-
-            <div className="social-divider">Or sign in with</div>
-            <div className="social-buttons">
-                <button className="btn btn-google">
-                    Google
-                </button>
-                <button className="btn btn-github">
-                    GitHub
-                </button>
-            </div>
 
             <p style={{ textAlign: 'center', marginTop: '2.5rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
                 Don't have an account? <Link to="/register" className="text-link">Create Account</Link>
