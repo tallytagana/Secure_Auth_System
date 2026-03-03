@@ -32,7 +32,7 @@ const Register = () => {
             {error && <div className="error-message"><AlertCircle size={18} /> {error}</div>}
 
             <form onSubmit={handleSubmit}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.75rem' }}>
                     <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label">First Name</label>
                         <input
@@ -59,11 +59,11 @@ const Register = () => {
                 <div className="form-group">
                     <label className="form-label">Email Address</label>
                     <div style={{ position: 'relative' }}>
-                        <Mail size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                        <Mail size={18} style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', opacity: 0.6 }} />
                         <input
                             type="email"
                             className="form-input"
-                            style={{ paddingLeft: '2.75rem' }}
+                            style={{ paddingLeft: '3rem' }}
                             placeholder="name@example.com"
                             required
                             value={formData.email}
@@ -71,14 +71,14 @@ const Register = () => {
                         />
                     </div>
                 </div>
-                <div className="form-group" style={{ marginBottom: '2rem' }}>
+                <div className="form-group" style={{ marginBottom: '2.5rem' }}>
                     <label className="form-label">Password</label>
                     <div style={{ position: 'relative' }}>
-                        <Lock size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                        <Lock size={18} style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', opacity: 0.6 }} />
                         <input
                             type="password"
                             className="form-input"
-                            style={{ paddingLeft: '2.75rem' }}
+                            style={{ paddingLeft: '3rem' }}
                             placeholder="••••••••"
                             required
                             value={formData.password}
@@ -87,11 +87,11 @@ const Register = () => {
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? 'Creating account...' : <><UserPlus size={18} /> Create Account</>}
+                    {loading ? 'Creating account...' : <><UserPlus size={20} /> Create Account</>}
                 </button>
             </form>
 
-            <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+            <p style={{ textAlign: 'center', marginTop: '2.5rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
                 Already have an account? <Link to="/login" className="text-link">Log In</Link>
             </p>
         </div>

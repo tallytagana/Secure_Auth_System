@@ -9,6 +9,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 function App() {
     return (
         <AuthProvider>
+            <div className="bg-orb" style={{ width: '400px', height: '400px', top: '-10%', left: '-10%', background: 'var(--primary)' }}></div>
+            <div className="bg-orb" style={{ width: '300px', height: '300px', bottom: '10%', right: '10%', background: 'var(--accent)', animationDelay: '-5s' }}></div>
             <Router>
                 <Routes>
                     <Route path="/login" element={<Login />} />

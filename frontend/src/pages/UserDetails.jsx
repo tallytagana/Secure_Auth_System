@@ -11,39 +11,43 @@ const UserDetails = () => {
         });
     }, []);
 
-    if (!user) return <div className="glass-card">Loading...</div>;
+    if (!user) return (
+        <div className="glass-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px' }}>
+            <div className="subtitle" style={{ margin: 0 }}>Deciphering user profile...</div>
+        </div>
+    );
 
     return (
         <div className="glass-card">
             <div className="profile-avatar-container">
                 <div className="profile-avatar">
-                    <User size={48} color="var(--primary)" />
+                    <User size={42} />
                 </div>
             </div>
 
             <h1>User Profile</h1>
-            <p className="subtitle">Account Information & Security</p>
+            <p className="subtitle">Securely verified identity</p>
 
             <div className="info-card">
                 <div className="info-item">
-                    <ShieldCheck size={24} color="var(--accent)" />
-                    <div>
-                        <p className="info-label">Full Name</p>
+                    <p className="info-label">Identity</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <ShieldCheck size={20} color="var(--accent)" style={{ opacity: 0.8 }} />
                         <p className="info-value">{user.firstName} {user.lastName}</p>
                     </div>
                 </div>
 
                 <div className="info-item">
-                    <Mail size={24} color="var(--primary)" />
-                    <div>
-                        <p className="info-label">Email Address</p>
+                    <p className="info-label">Contact Endpoint</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <Mail size={20} color="var(--primary)" style={{ opacity: 0.8 }} />
                         <p className="info-value">{user.email}</p>
                     </div>
                 </div>
             </div>
 
-            <button onClick={logout} className="btn btn-outline" style={{ color: 'var(--error)', borderColor: 'rgba(239, 68, 68, 0.2)' }}>
-                <LogOut size={18} /> Sign Out
+            <button onClick={logout} className="btn btn-outline" style={{ color: '#fda4af' }}>
+                <LogOut size={18} /> End Session
             </button>
         </div>
     );

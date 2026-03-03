@@ -38,11 +38,11 @@ const Login = () => {
                 <div className="form-group">
                     <label className="form-label">Email Address</label>
                     <div style={{ position: 'relative' }}>
-                        <Mail size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                        <Mail size={18} style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', opacity: 0.6 }} />
                         <input
                             type="email"
                             className="form-input"
-                            style={{ paddingLeft: '2.75rem' }}
+                            style={{ paddingLeft: '3rem' }}
                             placeholder="name@example.com"
                             required
                             value={formData.email}
@@ -50,14 +50,14 @@ const Login = () => {
                         />
                     </div>
                 </div>
-                <div className="form-group" style={{ marginBottom: '2rem' }}>
+                <div className="form-group" style={{ marginBottom: '2.5rem' }}>
                     <label className="form-label">Password</label>
                     <div style={{ position: 'relative' }}>
-                        <Lock size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                        <Lock size={18} style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', opacity: 0.6 }} />
                         <input
                             type="password"
                             className="form-input"
-                            style={{ paddingLeft: '2.75rem' }}
+                            style={{ paddingLeft: '3rem' }}
                             placeholder="••••••••"
                             required
                             value={formData.password}
@@ -66,11 +66,11 @@ const Login = () => {
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? 'Signing in...' : <><LogIn size={18} /> Login</>}
+                    {loading ? 'Authenticating...' : <><LogIn size={20} /> Login to Account</>}
                 </button>
             </form>
 
-            <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+            <p style={{ textAlign: 'center', marginTop: '2.5rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
                 Don't have an account? <Link to="/register" className="text-link">Create Account</Link>
             </p>
         </div>
